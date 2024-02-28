@@ -99,84 +99,158 @@ const Question = ({ handleResponse = () => {} }) => {
   }, [question]);
 
   return (
-    <div className="flex justify-center items-center ">
-      <div className="bg-gray-200 p-6">
-        <div className="my-6 max-w-screen-md">
-          <div className="flex justify-between space-between w-full">
-            <div>
-              <p>Quiz: {quiz_number}</p>
-              <p>Question: {question_no}</p>
+    <div>
+      <div className="mx-1 my-3 lg:mx-48">
+        <section className="rounded-xl bg-white ring ring-indigo-50 ">
+          <div className="flex flex-row justify-between">
+            <div class="sm:flex sm:items-start sm:justify-start">
+              <p class="block bg-yellow-300 rounded-t-xl md:rounded-tl-xl md:rounded-tr-none px-5 py-3 text-center text-s font-bold uppercase text-gray-900 transition hover:bg-yellow-400">
+                Quiz: &nbsp;{quiz_number}
+              </p>
             </div>
-            {correct.length ? (
-              <div>
-                {correct === "Correct" ? (
-                  <p className="text-green-500">Correct</p>
-                ) : (
-                  <p className="text-red-500">Incorrect</p>
-                )}
-              </div>
-            ) : null}
-          </div>
-          <p className="mt-4 mb-2 font-semibold">
-            <Markdown>{question}</Markdown>
-          </p>
-          <div className="flex flex-col">
-            {choices &&
-              choices.map((choice, choiceIndex) => (
-                <label
-                  key={choiceIndex}
-                  className="inline-flex items-center mb-2"
-                >
-                  {multiple ? (
-                    <input
-                      type="checkbox"
-                      className="form-checkbox h-5 w-5 text-blue-500"
-                      checked={selected.includes(choice)}
-                      onChange={() => handleCheckboxChange(choice)}
-                    />
+            {/* correct/wrong */}
+            <div class="flex justify-center">
+              {correct.length ? (
+                <div>
+                  {correct === "Correct" ? (
+                    <div>
+                      <strong class="-mt-[2px] -me-[2px] inline-flex items-center gap-1 rounded-se-xl rounded-es-xl bg-green-600 px-3 py-1.5 text-white">
+                        <span class="text-[10px] font-medium sm:text-xs">
+                          Correct!
+                        </span>
+                      </strong>
+                    </div>
                   ) : (
-                    <input
-                      type="radio"
-                      className="form-radio h-5 w-5 text-blue-500"
-                      checked={selected.includes(choice)}
-                      onChange={() => handleRadioChange(choice)}
-                    />
+                    <div>
+                      <p className="text-"></p>
+                      <strong class="-mt-[2px] -me-[2px] inline-flex items-center gap-1 rounded-se-xl rounded-es-xl bg-red-500 px-3 py-1.5 text-white">
+                        <span class="text-[10px] font-medium sm:text-xs">
+                          Incorrect!
+                        </span>
+                      </strong>
+                    </div>
                   )}
-                  <span className="ml-2">
-                    <Markdown>{choice}</Markdown>
-                  </span>
-                </label>
-              ))}
-          </div>
-          <div className="flex justify-between space-between w-full">
-            <button
-              className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600"
-              onClick={handleSubmit}
-            >
-              Submit
-            </button>
-            <button
-              className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600"
-              onClick={() => setShowAnswer(!showAnswer)}
-            >
-              {showAnswer ? <p>Hide Answer</p> : <p>Show Answer</p>}
-            </button>
-          </div>
-          {showAnswer && (
-            <div className="mt-4">
-              <p className="font-semibold">Correct Answer:</p>
-              {answers.map((answer, index) => (
-                <p key={index}>
-                  <Markdown>
-                    {alpha[choices.findIndex((i) => i === answer)] +
-                      ". " +
-                      answer}
-                  </Markdown>
-                </p>
-              ))}
+                </div>
+              ) : null}
             </div>
-          )}
-        </div>
+          </div>
+
+          <div className="px-4 sm:px-6 py-2 lg:px-8">
+            <div className="flex items-start sm:gap-8">
+              <div>
+                <strong className="rounded border border-indigo-500 bg-indigo-500 px-3 py-1.5 text-[15px] font-medium text-white">
+                  Question: &nbsp;{question_no}
+                </strong>
+
+                {/* Question */}
+                <div>
+                  <p className="mt-4 mb-2 font-semibold">
+                    <Markdown>{question}</Markdown>
+                  </p>
+                </div>
+
+                <div>
+                  <div className="flex flex-col">
+                    {choices &&
+                      choices.map((choice, choiceIndex) => (
+                        <label
+                          key={choiceIndex}
+                          className="inline-flex items-center mb-2"
+                        >
+                          {multiple ? (
+                            <input
+                              type="checkbox"
+                              className="form-checkbox h-5 w-5 text-blue-500 mr-2"
+                              checked={selected.includes(choice)}
+                              onChange={() => handleCheckboxChange(choice)}
+                            />
+                          ) : (
+                            <input
+                              type="radio"
+                              className="form-radio h-5 w-5 text-blue-500 mr-2"
+                              checked={selected.includes(choice)}
+                              onChange={() => handleRadioChange(choice)}
+                            />
+                          )}
+                          <span
+                            className={`flex items-center rounded px-4 ${
+                              choiceIndex % 2 !== 0
+                                ? "bg-purple-100"
+                                : "bg-indigo-50"
+                            }`}
+                          >
+                            <span className="mr-2">
+                              {String.fromCharCode(97 + choiceIndex)}.&nbsp;
+                            </span>
+                            <span>
+                              <Markdown className="list-">{choice}</Markdown>
+                            </span>
+                          </span>
+                        </label>
+                      ))}
+                  </div>
+                </div>
+                <div>
+                  <div className="flex justify-between space-between w-full">
+                    <button
+                      className="bg-gradient-to-r from-amber-500 to-pink-500 text-white px-4 py-2 rounded hover:bg-gradient-to-r hover:from-fuchsia-500 hover:to-cyan-500 transition"
+                      onClick={handleSubmit}
+                    >
+                      Submit
+                    </button>
+                    {/* correct/wrong */}
+                    <div class="flex justify-center my-2">
+                      {correct.length ? (
+                        <div>
+                          {correct === "Correct" ? (
+                            <div>
+                              <strong class="-mt-[2px] -me-[2px] inline-flex items-center gap-1 rounded-se-xl rounded-es-xl bg-green-600 px-3 py-1.5 text-white">
+                                <span class="text-[10px] font-medium sm:text-xs">
+                                  Correct!
+                                </span>
+                              </strong>
+                            </div>
+                          ) : (
+                            <div>
+                              <p className="text-"></p>
+                              <strong class="-mt-[2px] -me-[2px] inline-flex items-center gap-1 rounded-se-xl rounded-es-xl bg-red-500 px-3 py-1.5 text-white">
+                                <span class="text-[10px] font-medium sm:text-xs">
+                                  Incorrect!
+                                </span>
+                              </strong>
+                            </div>
+                          )}
+                        </div>
+                      ) : null}
+                    </div>
+                    <button
+                      className="bg-gradient-to-r from-amber-500 to-pink-500 text-white px-4 py-2 rounded hover:bg-gradient-to-r hover:from-fuchsia-500 hover:to-cyan-500 transition"
+                      onClick={() => setShowAnswer(!showAnswer)}
+                    >
+                      {showAnswer ? <p>Hide Answer</p> : <p>Show Answer</p>}
+                    </button>
+                  </div>
+                </div>
+                <div>
+                  {showAnswer && (
+                    <div className="mt-4">
+                      <p className="font-semibold">Correct Answer:</p>
+                      {answers.map((answer, index) => (
+                        <p key={index}>
+                          <Markdown>
+                            {alpha[choices.findIndex((i) => i === answer)] +
+                              ". " +
+                              answer}
+                          </Markdown>
+                        </p>
+                      ))}
+                    </div>
+                  )}
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
       </div>
     </div>
   );
