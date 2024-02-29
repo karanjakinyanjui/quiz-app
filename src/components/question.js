@@ -104,7 +104,7 @@ const Question = ({ handleResponse = () => {} }) => {
         <section className="rounded-xl bg-white ring ring-indigo-50 ">
           <div className="flex flex-row justify-between">
             <div class="sm:flex sm:items-start sm:justify-start">
-              <p class="block bg-yellow-300 rounded-t-xl md:rounded-tl-xl md:rounded-tr-none px-5 py-3 text-center text-s font-bold uppercase text-gray-900 transition hover:bg-yellow-400">
+              <p class="block bg-yellow-300 rounded-tl-xl px-5 py-3 text-center text-s font-bold uppercase text-gray-900 transition hover:bg-yellow-400">
                 Quiz: &nbsp;{quiz_number}
               </p>
             </div>
